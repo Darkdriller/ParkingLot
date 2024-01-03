@@ -20,16 +20,32 @@ public class ParkingLotTest {
         parkingLot = new ParkingLot();
         securityStaff=new AirportSecurity();
         parkingLotOwner = new ParkingLotOwner();
-        parkingAttendant= new ParkingAttendant(parkingLot);
+        parkingAttendant= new ParkingAttendant();
+        parkingAttendant.assignParkingLot(parkingLot);
         parkingLot.setParkingAttendant(parkingAttendant);
         parkingLot.setSecurityStaff(securityStaff);
         parkingLot.setParkingLotOwner(parkingLotOwner);
     }
     @Test
-    public void testTrackTimestamp_WhenCarIsParked() {
-        boolean isParked = parkingAttendant.parkCarForFlight("Car1", new Date());
-        assertTrue(isParked);     // Check if the car is parked successfully
-        Date timestamp = parkingAttendant.getTimestampForParkedCar("Car1");  // Get the timestamp when the car was parked
-        assertNotNull(timestamp);    // Check if the timestamp is not null
+    public void testEvenDistributionByParkingAttendant() {
+        ParkingLot parkingLot1 = new ParkingLot();
+        ParkingLot parkingLot2 = new ParkingLot();
+
+        // Set up the parking lots and parking attendant
+        parkingAttendant.assignParkingLot(parkingLot1);
+        parkingAttendant.assignParkingLot(parkingLot2);
+
+        // Park multiple cars using the attendant
+        parkingAttendant.parkCarForFlight("Driver1",  new Date());
+        parkingAttendant.parkCarForFlight("Driver2",  new Date());
+        parkingAttendant.parkCarForFlight("Driver3",  new Date());
+        parkingAttendant.parkCarForFlight("Driver4",  new Date());
+        parkingAttendant.parkCarForFlight("Driver5",  new Date());
+
+        assertEquals(2, parkingLot.count);
+        assertEquals(2, parkingLot1.count);
+        assertEquals(1, parkingLot2.count);
+        assertEquals(2, parkingLot.count);
+
     }
 }

@@ -67,4 +67,7 @@ public class ParkingLot {
     public Date getTimestampForParkedCar(String carNo){
         return parkedCars.getOrDefault(carNo, null);
     }
+    public int getNumberOfParkedCars() {
+        return count;
+    }
 }
