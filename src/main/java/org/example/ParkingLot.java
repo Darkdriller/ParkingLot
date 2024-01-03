@@ -10,4 +10,8 @@ public class ParkingLot {
         System.out.println("Vehicle Parked");
         return true;
     }
+    public boolean unParkCar() {
+        System.out.println("Vehicle UnParked ✅");
+        return true;
+    }
 }
