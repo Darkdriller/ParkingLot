@@ -1,5 +1,8 @@
 package org.example;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author Dhruv
  * @project ParkingLot
@@ -9,6 +12,7 @@ public class ParkingLot {
     private AirportSecurity securityStaff;
     private ParkingLotOwner parkingLotOwner;
     private ParkingAttendant parkingAttendant;
+    private Set<String> parkedCars = new HashSet<>();
     public int MAX_CAPACITY = 10;
     public int count=0;
 
@@ -21,8 +25,9 @@ public class ParkingLot {
     public void setParkingAttendant(ParkingAttendant parkingAttendant) {
         this.parkingAttendant = parkingAttendant;
     }
-    public boolean parkCarForFlight() {
+    public boolean parkCarForFlight(String carId) {
         if(!isLotFull()) {
+            parkedCars.add(carId);
             System.out.println("Vehicle Parked ");
             count++;
             return true;
@@ -33,13 +38,14 @@ public class ParkingLot {
             return false;
         }
     }
-    public boolean unParkCar() {
-        if(count==0){
+    public boolean unParkCar(String carId) {
+        if(count== 0 || !parkedCars.contains(carId)){
             System.out.println("Error!!! No car in the Lot");
             return false;
         }
         else {
             System.out.println("Vehicle UnParked");
+            parkedCars.remove(carId);
             count--;
             this.notifyOwnerIfSpaceAvailable();
             return true;

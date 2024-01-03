@@ -9,10 +9,10 @@ public class ParkingAttendant {
     public  ParkingAttendant(ParkingLot parkingLot){
         this.parkingLot=parkingLot;
     }
-    public boolean parkCarForFlight() {
-        return parkingLot.parkCarForFlight();
+    public boolean parkCarForFlight(String carId) {
+        return parkingLot.parkCarForFlight(carId);
     }
-    public boolean unParkCar(){
-        return parkingLot.unParkCar();
+    public boolean unParkCar(String carId){
+        return parkingLot.unParkCar(carId);
     }
 }

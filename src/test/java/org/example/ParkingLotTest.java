@@ -25,11 +25,12 @@ public class ParkingLotTest {
     }
     //UC5
     @Test
-    public void testNotifyOwner_ShouldReturnTrue_WhenSpaceIsAvailableAgain() {
+    public void testNotifyOwner_ShouldReturnTrue_WhenSpaceIsAvailableAgainWithCarOwnerFindingCar() {
         for (int i = 1; i <= parkingLot.MAX_CAPACITY; i++) {
-            parkingAttendant.parkCarForFlight();
+            String str="Car"+i;
+            parkingAttendant.parkCarForFlight(str);
         }
-        parkingAttendant.unParkCar();  // Unpark one car to create available space
+        parkingAttendant.unParkCar("Car10");  // Unpark one car to create available space
         assertTrue(parkingLotOwner.isNotified());  // Check if the parking lot owner is notified
     }
 }
