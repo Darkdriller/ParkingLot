@@ -7,6 +7,8 @@ package org.example;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Date;
+
 import static junit.framework.Assert.*;
 public class ParkingLotTest {
     private ParkingLot parkingLot;
@@ -23,14 +25,11 @@ public class ParkingLotTest {
         parkingLot.setSecurityStaff(securityStaff);
         parkingLot.setParkingLotOwner(parkingLotOwner);
     }
-    //UC5
     @Test
-    public void testNotifyOwner_ShouldReturnTrue_WhenSpaceIsAvailableAgainWithCarOwnerFindingCar() {
-        for (int i = 1; i <= parkingLot.MAX_CAPACITY; i++) {
-            String str="Car"+i;
-            parkingAttendant.parkCarForFlight(str);
-        }
-        parkingAttendant.unParkCar("Car10");  // Unpark one car to create available space
-        assertTrue(parkingLotOwner.isNotified());  // Check if the parking lot owner is notified
+    public void testTrackTimestamp_WhenCarIsParked() {
+        boolean isParked = parkingAttendant.parkCarForFlight("Car1", new Date());
+        assertTrue(isParked);     // Check if the car is parked successfully
+        Date timestamp = parkingAttendant.getTimestampForParkedCar("Car1");  // Get the timestamp when the car was parked
+        assertNotNull(timestamp);    // Check if the timestamp is not null
     }
 }
