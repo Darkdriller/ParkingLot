@@ -6,8 +6,12 @@ package org.example;
  */
 
 public class ParkingLot {
+    private AirportSecurity securityStaff;
     public int MAX_CAPACITY = 10;
     public int count=0;
+    public ParkingLot(AirportSecurity staff){
+        this.securityStaff=staff;
+    }
     public boolean parkCarForFlight() {
         if(!isLotFull()){
             System.out.println("Vehicle Parked");
@@ -16,6 +20,7 @@ public class ParkingLot {
         }
         else {
             System.out.println("Lot Full");
+            notifySecurity();
             return false;
         }
     }
@@ -32,5 +37,10 @@ public class ParkingLot {
     }
     public boolean isLotFull() {
         return count == MAX_CAPACITY;
+    }
+    private void notifySecurity() {
+        if (securityStaff != null) {
+            securityStaff.notifyLotFull();
+        }
     }
 }
