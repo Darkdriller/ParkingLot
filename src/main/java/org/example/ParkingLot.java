@@ -8,20 +8,27 @@ package org.example;
 public class ParkingLot {
     private AirportSecurity securityStaff;
     private ParkingLotOwner parkingLotOwner;
+    private ParkingAttendant parkingAttendant;
     public int MAX_CAPACITY = 10;
     public int count=0;
-    public ParkingLot(AirportSecurity staff,ParkingLotOwner owner){
+
+    public void setSecurityStaff(AirportSecurity staff){
         this.securityStaff=staff;
-        this.parkingLotOwner=owner;
+    }
+    public void setParkingLotOwner(ParkingLotOwner parkingLotOwner) {
+        this.parkingLotOwner = parkingLotOwner;
+    }
+    public void setParkingAttendant(ParkingAttendant parkingAttendant) {
+        this.parkingAttendant = parkingAttendant;
     }
     public boolean parkCarForFlight() {
-        if(!isLotFull()){
-            System.out.println("Vehicle Parked");
+        if(!isLotFull()) {
+            System.out.println("Vehicle Parked ");
             count++;
             return true;
         }
-        else {
-            System.out.println("Lot Full");
+        else{
+            System.out.println("Parking lot is full");
             notifySecurity();
             return false;
         }
@@ -41,6 +48,7 @@ public class ParkingLot {
     public boolean isLotFull() {
         return count == MAX_CAPACITY;
     }
+
     private void notifySecurity() {
         if (securityStaff != null) {
             securityStaff.notifyLotFull();
