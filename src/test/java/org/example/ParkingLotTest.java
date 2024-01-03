@@ -27,11 +27,14 @@ public class ParkingLotTest {
         parkingLot.setParkingLotOwner(parkingLotOwner);
     }
     @Test
-    public void testEvenDistributionByParkingAttendant() {
+    public void testParkCarForHandicapDriver() {
         ParkingLot parkingLot1 = new ParkingLot();
         ParkingLot parkingLot2 = new ParkingLot();
 
-        // Set up the parking lots and parking attendant
+        parkingLot.MAX_CAPACITY=2;
+        parkingLot1.MAX_CAPACITY=1;
+        parkingLot2.MAX_CAPACITY=10;
+
         parkingAttendant.assignParkingLot(parkingLot1);
         parkingAttendant.assignParkingLot(parkingLot2);
 
@@ -40,12 +43,12 @@ public class ParkingLotTest {
         parkingAttendant.parkCarForFlight("Driver2",  new Date());
         parkingAttendant.parkCarForFlight("Driver3",  new Date());
         parkingAttendant.parkCarForFlight("Driver4",  new Date());
-        parkingAttendant.parkCarForFlight("Driver5",  new Date());
 
-        assertEquals(2, parkingLot.count);
-        assertEquals(2, parkingLot1.count);
-        assertEquals(1, parkingLot2.count);
-        assertEquals(2, parkingLot.count);
+        // Park a car for a handicap driver
+        boolean isParked = parkingAttendant.parkCarForHandicapDriver("Driver5", new Date());
 
+        // Check if the car is parked in the nearest lot
+        assertTrue(isParked);
+        assertTrue(parkingLot2.unParkCar("Driver5"));
     }
 }
